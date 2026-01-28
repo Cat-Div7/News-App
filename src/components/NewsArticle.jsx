@@ -30,7 +30,7 @@ export function NewsArticle(props) {
             {title || "Unknown Title"}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            This is a sample article (Description)
+            {description || "No description available."}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -40,7 +40,7 @@ export function NewsArticle(props) {
           {author || "Unknown Author"}
         </Typography>
         <Typography variant="caption" color="textSecondary">
-          Tuesday October 3rd, 2023
+          {puplishedAt || "Unknown Date"}
         </Typography>
       </Box>
     </StyledCard>
