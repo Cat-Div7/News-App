@@ -26,6 +26,7 @@ export default defineConfig({
       "@pages": resolve(__dirname, "src/pages"),
       "@utils": resolve(__dirname, "src/utils"),
       "@context": resolve(__dirname, "src/context"),
+      "@themes": resolve(__dirname, "src/themes"),
       "@hooks": resolve(__dirname, "src/hooks"),
       "@styles": resolve(__dirname, "src/styles"),
       "@layouts": resolve(__dirname, "src/layouts"),

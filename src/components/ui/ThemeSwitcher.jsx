@@ -2,6 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@context";
 import { useRef } from "react";
 import { flushSync } from "react-dom";
+import { IconButton } from "@mui/material";
 
 export function ThemeSwitcher() {
   const { theme, toggleTheme } = useTheme();
@@ -49,13 +50,27 @@ export function ThemeSwitcher() {
 
   return (
     <>
-      <button
+      <IconButton
         ref={buttonRef}
         onClick={handleToggle}
-        className="relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-zinc-200 text-zinc-900 transition-colors duration-300 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+        sx={{
+          backgroundColor: "rgb(228, 228, 231)", // zinc-200
+          "&:hover": {
+            backgroundColor: "rgb(212, 212, 216)", // zinc-300
+          },
+          ".dark &": {
+            backgroundColor: "rgb(39, 39, 42)", // zinc-800
+            "&:hover": {
+              backgroundColor: "rgb(63, 63, 70)", // zinc-700
+            },
+          },
+          border: "1px solid",
+          borderColor: "divider",
+        }}
+        className="relative h-8 w-8 transition-colors duration-300"
       >
         {isDark ? <Moon size={18} /> : <Sun size={18} />}
-      </button>
+      </IconButton>
 
       <style
         dangerouslySetInnerHTML={{

@@ -7,11 +7,14 @@ import "@fontsource/roboto/700.css";
 import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider } from "@context";
+import AppMuiThemeProvider from "@themes/MuiThemeProvider";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
-      <App />
+      <AppMuiThemeProvider>
+        <App />
+      </AppMuiThemeProvider>
     </ThemeProvider>
   </StrictMode>,
 );
