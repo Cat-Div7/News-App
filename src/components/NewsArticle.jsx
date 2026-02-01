@@ -11,7 +11,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 export function NewsArticle(props) {
-  const { image, title, description, author, puplishedAt } = props;
+  const { image, title, description, author, publishedAt } = props;
 
   return (
     <StyledCard>
@@ -39,9 +39,11 @@ export function NewsArticle(props) {
         <Typography variant="caption" color="textSecondary" display="block">
           {author || "Unknown Author"}
         </Typography>
-        <Typography variant="caption" color="textSecondary">
-          {puplishedAt || "Unknown Date"}
-        </Typography>
+        {publishedAt && (
+          <Typography variant="caption" color="textSecondary">
+            {new Date(publishedAt).toLocaleDateString()}
+          </Typography>
+        )}
       </Box>
     </StyledCard>
   );
