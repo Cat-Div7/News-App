@@ -1,5 +1,6 @@
 import { NewsArticle, NewsFeed, ThemeSwitcher, NewsHeader } from "@components";
 import { useEffect, useState } from "react";
+import { debounce } from "lodash";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -21,6 +22,17 @@ function App() {
     }));
   };
 
+  // Debounced Search Function
+  const debouncedLoadData = debounce((newQuery) => {
+    setLoading(true);
+
+    loadData(newQuery)
+      .then(setArticles)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, 500);
+
+  // Fetch Data on Initial Load
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,13 +49,9 @@ function App() {
     fetchData();
   }, []);
 
+  // Handle Search Input Changes
   const handleSearchChange = (newQuery) => {
-    setLoading(true);
-
-    loadData(newQuery)
-      .then(setArticles)
-      .catch(console.error)
-      .finally(() => setLoading(false));
+    debouncedLoadData(newQuery);
   };
 
   return (
