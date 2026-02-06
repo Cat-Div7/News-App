@@ -11,11 +11,16 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 export function NewsArticle(props) {
-  const { image, title, description, author, publishedAt } = props;
+  const { image, title, description, author, publishedAt, url } = props;
 
   return (
     <StyledCard>
-      <CardActionArea>
+      <CardActionArea
+        component="a"
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {image && (
           <CardMedia
             component="img"
