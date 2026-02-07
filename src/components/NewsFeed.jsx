@@ -18,7 +18,7 @@ export function NewsFeed(props) {
     );
   }
 
-  if (!articles.length) {
+  if (!articles?.length) {
     return (
       <Typography
         align="center"

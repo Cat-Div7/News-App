@@ -1,4 +1,5 @@
 import { AppBar, InputBase, styled, Toolbar, Typography } from "@mui/material";
+import { ThemeSwitcher } from "@components";
 import SearchIcon from "@mui/icons-material/Search";
 
 const Search = styled("div")(({ theme }) => ({
@@ -35,7 +36,8 @@ export function NewsHeader({ onSearchChange }) {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6">NewsFeed App</Typography>
+        <Typography variant="h6" marginRight={2}>NewsFeed App</Typography>
+        <ThemeSwitcher />
         <Search>
           <SearchIconWrapper>
             <SearchIcon color="action" />
