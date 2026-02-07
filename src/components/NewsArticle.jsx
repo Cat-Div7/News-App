@@ -4,11 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
-
-const StyledCard = styled(Card)(({ theme }) => ({
-  margin: theme.spacing(2, 0),
-}));
+import { StyledCard } from "@components";
 
 export function NewsArticle(props) {
   const { image, title, description, author, publishedAt, url } = props;

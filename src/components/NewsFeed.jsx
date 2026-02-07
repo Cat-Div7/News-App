@@ -1,24 +1,11 @@
-import { NewsArticle } from "@components";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { NewsArticle, LoadingArticle } from "@components";
+import { Typography } from "@mui/material";
 import { Fragment } from "react";
 
 export function NewsFeed(props) {
   const { articles, loading } = props;
 
-  if (loading) {
-    return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="50vh"
-      >
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (!articles?.length) {
+  if (!loading && !articles?.length) {
     return (
       <Typography
         align="center"
@@ -33,7 +20,8 @@ export function NewsFeed(props) {
 
   return (
     <div>
-      {articles?.map((article) => {
+      {loading && [...Array(5)].map((_, index) => <LoadingArticle key={index}/>)}
+      {!loading && articles?.map((article) => {
         return (
           <Fragment key={JSON.stringify(article)}>
             <NewsArticle {...article} />

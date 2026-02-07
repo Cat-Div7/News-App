@@ -103,7 +103,7 @@ function App() {
         {error.length === 0 && (
           <NewsFeed articles={articles} loading={loading} />
         )}
-        {error.length && (
+        {error.length > 0 && (
           <Typography color="error" align="center">
             {error}
           </Typography>
@@ -112,7 +112,7 @@ function App() {
           <Button
             variant="outlined"
             onClick={handlePreviousClick}
-            disabled={pageNumber.current === 1}
+            disabled={loading || pageNumber.current === 1}
           >
             Previous
           </Button>
