@@ -1,5 +1,5 @@
-import { NewsArticle, NewsFeed, NewsHeader } from "@components";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { NewsFeed, NewsHeader } from "@components";
+import { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import { debounce } from "lodash";
 import { Button, styled } from "@mui/material";
 
@@ -8,6 +8,8 @@ const Footer = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
 }));
+
+const PAGE_SIZE = 5;
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -18,7 +20,7 @@ function App() {
   // Data Fetching Function
   const loadData = async () => {
     const response = await fetch(
-      `https://gnews.io/api/v4/top-headlines?q=${encodeURIComponent(queryValue.current)}&page=${pageNumber.current}&max=5&country=eg&lang=ar&apikey=${import.meta.env.VITE_NEWS_API_KEY}`,
+      `https://gnews.io/api/v4/top-headlines?q=${encodeURIComponent(queryValue.current)}&page=${pageNumber.current}&max=${PAGE_SIZE}&country=eg&lang=ar&apikey=${import.meta.env.VITE_NEWS_API_KEY}`,
     );
 
     const data = await response.json();
@@ -41,7 +43,7 @@ function App() {
   }, []);
 
   // Debounced Search Function
-  const debouncedLoadData = useCallback(
+  const debouncedLoadData = useMemo(
     () => debounce(fetchAndUpdateArticles, 500),
     [fetchAndUpdateArticles],
   );
@@ -64,10 +66,9 @@ function App() {
     fetchAndUpdateArticles();
   };
   const handlePreviousClick = () => {
-    if (pageNumber.current > 1) {
-      pageNumber.current -= 1;
-      fetchAndUpdateArticles();
-    }
+    if (pageNumber.current <= 1) return;
+    pageNumber.current -= 1;
+    fetchAndUpdateArticles();
   };
 
   return (
@@ -76,10 +77,20 @@ function App() {
         <NewsHeader onSearchChange={handleSearchChange} />
         <NewsFeed articles={articles} loading={loading} />
         <Footer>
-          <Button variant="outlined" onClick={handlePreviousClick}>
+          <Button
+            variant="outlined"
+            onClick={handlePreviousClick}
+            disabled={pageNumber.current === 1}
+          >
             Previous
           </Button>
-          <Button variant="outlined" onClick={handleNextClick}>
+          <Button
+            variant="outlined"
+            onClick={handleNextClick}
+            disabled={
+              loading || !articles.length || articles.length < PAGE_SIZE
+            }
+          >
             Next
           </Button>
         </Footer>
